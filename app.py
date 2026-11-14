@@ -45,8 +45,9 @@ def open_trades():
 
 def totals():
     df = read_trades()
-    if df.empty:
-        return 0.0, 0.0, 0
+    
+if df.empty:
+    return 0.0, 0.0, 0, 0.0
     realized = float(df.loc[df.status == "CLOSED", "realized_pnl"].sum())
     op = df[df.status == "OPEN"]
     unrealized = float(((op.current_premium - op.entry_premium) * op.quantity).sum()) if not op.empty else 0.0
